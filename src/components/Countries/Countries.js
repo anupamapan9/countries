@@ -4,7 +4,7 @@ import CountryCard from './CountryCard';
 const Conutries = () => {
     const [countries, setCountries] = useState([])
     const [url, setUrl] = useState("https://restcountries.com/v3.1/all")
-    console.log(countries)
+
     useEffect(() => {
         fetch(url)
             .then(res => res.json())
@@ -28,6 +28,7 @@ const Conutries = () => {
             return
         }
         setUrl(`https://restcountries.com/v3.1/name/${text}`)
+        e.target.reset()
     }
 
     return (
@@ -37,6 +38,7 @@ const Conutries = () => {
                     <div className="input-group">
                         <input type="text" placeholder="Search…" name='text' className="input input-bordered" />
                         <input type="submit" value="submit" className='btn btn-primary' />
+                        <input value="All" type="button" className='btn btn-success' readOnly onClick={() => setUrl("https://restcountries.com/v3.1/all")} />
                     </div>
                 </form>
             </div>
@@ -46,7 +48,7 @@ const Conutries = () => {
                 </div>
             }
             {
-                countries && <div className='grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4 lg:gap-10 px-10'>
+                countries && <div className='grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4 lg:gap-10 md:px-10'>
                     {
                         countries?.map(country => <CountryCard country={country} key={country.ccn3} />)}
                 </div>
